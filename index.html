@@ -10,6 +10,7 @@
   Hello, world!
   <ul id='results'>
   </ul>
+
   <script>
     function addItem(device) {
       var ul = document.querySelector('#results');
@@ -18,11 +19,12 @@
       ul.appendChild(li);
     }
 
-    if (!window.evothings || !window.evothings.ble) {
-      addItem({ error: 'No evothings.ble found' });
+    if (!window.ble) {
+      addItem({ error: 'No ble found' });
     }
 
-    evothings.ble.startScan(
+    ble.startScan(
+      [],
       addItem,
       function (errCode) { addItem({ error: 'BLE startScan error: ' + errorCode }); }
     );
