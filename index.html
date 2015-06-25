@@ -19,15 +19,22 @@
       ul.appendChild(li);
     }
 
-    if (!window.ble) {
-      addItem({ error: 'No ble found' });
+    if (!window.evothings) {
+      addItem({ error: 'No evothings found' });
     }
 
-    ble.startScan(
-      [],
-      addItem,
-      function (errCode) { addItem({ error: 'BLE startScan error: ' + errorCode }); }
-    );
+    if (!window.evothings.ble) {
+      addItem({ error: 'No evothings.ble found' });
+    }
+
+    try {
+      evothings.ble.startScan(
+        addItem,
+        function (errCode) { addItem({ error: 'BLE startScan error: ' + errorCode }); }
+      );
+    } catch (e) {
+      addItem({ error: e.message });
+    }
   </script>
 </body>
 
